@@ -106,6 +106,8 @@ function Viewfinder({ lang, frameRef }) {
           <div className={styles.photoInner}>
             <img
               src="/images/moi.webp"
+              width="951"
+              height="1189"
               alt="Gaïus Chanis HONTONWAKOU"
               className={styles.photo}
             />
