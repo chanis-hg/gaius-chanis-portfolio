@@ -20,6 +20,7 @@ body {
   line-height: 1.6;
   transition: background-color 0.35s ease, color 0.35s ease;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 img {

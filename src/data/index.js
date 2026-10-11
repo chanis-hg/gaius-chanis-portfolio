@@ -303,10 +303,11 @@ export const CAPABILITIES = [
     number: "01",
     categoryFr: "INTERFACE",
     categoryEn: "INTERFACE",
-    image: "/images/capability_interface.webp",
+    image: "/images/capability_africa_pulse.webp",
+    imagePosition: "left center",
 
-    altFr: "Illustration d'une interface web responsive sur ordinateur et mobile",
-    altEn: "Illustration of a responsive web interface on desktop and mobile",
+    altFr: "Tableau de bord Africa Pulse : PIB des principaux pays et accès à Internet",
+    altEn: "Africa Pulse dashboard: GDP of leading countries and Internet access",
     titleFr: "Interfaces et sites web",
     titleEn: "Websites and interfaces",
     descriptionFr:
@@ -330,13 +331,13 @@ export const CAPABILITIES = [
     number: "02",
     categoryFr: "SYSTÈME",
     categoryEn: "SYSTEM",
-    image: "/images/digimama_admin.webp",
+    image: "/images/capability_cavi_regles.webp",
 
     altFr:
-      "Back-office Filament de DigiMama : gestion des cours, leçons et badges",
+      "Back-office Filament de CAVI-Alibori : règles de décision agricoles validées",
 
     altEn:
-      "DigiMama Filament back-office: managing courses, lessons and badges",
+      "CAVI-Alibori Filament back-office: validated agricultural decision rules",
 
     titleFr: "Backend, API et fonctionnalités métier",
     titleEn: "Backend, APIs and business features",
@@ -361,13 +362,13 @@ export const CAPABILITIES = [
     number: "03",
     categoryFr: "CONCEPTION",
     categoryEn: "DESIGN",
-    image: "/images/capability_design.webp",
+    image: "/images/capability_farmfresh.webp",
 
     altFr:
-      "Illustration de wireframes et d'un parcours utilisateur en conception",
+      "Maquette Figma de FarmFresh Benin (projet scolaire) : fiche produit, tomates d'Allada à 1 500 FCFA le kilo, contact du producteur",
 
     altEn:
-      "Illustration of wireframes and a user journey in progress",
+      "FarmFresh Benin Figma mockup (school project): product page, Allada tomatoes at 1,500 FCFA per kg, contact the producer",
 
     titleFr: "UX/UI et conception de produits",
     titleEn: "UX/UI and product design",
@@ -393,10 +394,11 @@ export const CAPABILITIES = [
     categoryFr: "CONTENU",
     categoryEn: "CONTENT",
 
-    image: "/images/capability_photography.webp",
+    image: "/images/capability_photography_ifri.webp",
+    imagePosition: "50% 25%",
 
-    altFr: "Photographe couvrant un événement officiel",
-    altEn: "Photographer covering an official event",
+    altFr: "Gaïus Chanis en train de photographier lors d'une activité à l'IFRI",
+    altEn: "Gaïus Chanis taking photos during an activity at IFRI",
 
     titleFr: "Photographie et contenu visuel",
     titleEn: "Photography and visual content",
@@ -483,23 +485,57 @@ export const PROJECTS = [
         "Bulletin → extraction (embeddings microservice, automatic regex fallback) → rules engine → FFmpeg audio assembly → simulated IVR. Filament back-office to manage rules.",
 
       proofFr:
-        "Scénario de démo complet (Banikoara, sécheresse sévère sur 12 jours → paillage du sol) : la règle est trouvée et un message de 6 s est généré puis lu dans le navigateur. Chaque brique a un repli : regex si l'IA ne répond pas, réencodage si la concaténation échoue.",
+        "Scénario de démo complet (Banikoara, sécheresse sévère sur 12 jours → paillage du sol) : la règle est trouvée et un message de 6 s est généré puis lu dans le navigateur. Chaque brique a un repli : regex si l'IA ne répond pas, réencodage si la concaténation échoue. Trois suites de tests PHPUnit couvrent le moteur de règles, l'extraction regex et l'absence d'un segment audio.",
       proofEn:
-        "Complete demo scenario (Banikoara, severe drought over 12 days → mulching): the rule is matched and a 6-second message is generated and played in the browser. Each step has a fallback: regex if the AI does not respond, re-encoding if concatenation fails.",
+        "Complete demo scenario (Banikoara, severe drought over 12 days → mulching): the rule is matched and a 6-second message is generated and played in the browser. Each step has a fallback: regex if the AI does not respond, re-encoding if concatenation fails. Three PHPUnit test suites cover the rules engine, regex extraction and a missing audio segment.",
 
       limitsFr: [
         "Les segments audio sont des tonalités de substitution : les enregistrements d'un locuteur bariba restent à faire.",
         "Les phrases de référence du modèle d'IA restent à calibrer sur de vrais bulletins Météo-Bénin.",
         "Une seule commune, un seul scénario, une seule langue.",
         "Granularité des bulletins et couverture réseau non vérifiées ; aucun test auprès d'agriculteurs.",
-        "Tests automatisés partiels : pas encore de test de bout en bout.",
+        "Pas encore de test de bout en bout du pipeline complet.",
+      ],
+
+      nextFr: [
+        "Enregistrer les segments avec un locuteur bariba, puis peulh et dendi",
+        "Calibrer l'extraction sur une série de vrais bulletins Météo-Bénin",
+        "Tester le message auprès de quelques producteurs de Banikoara avant d'élargir",
+        "Brancher un vrai serveur vocal (SVI) accessible depuis un téléphone simple",
+      ],
+      nextEn: [
+        "Record the segments with a Bariba speaker, then Fulfulde and Dendi",
+        "Calibrate extraction on a set of real Météo-Bénin bulletins",
+        "Test the message with a few Banikoara farmers before scaling",
+        "Connect a real IVR server reachable from a basic phone",
+      ],
+
+      gallery: [
+        {
+          src: "/images/case_cavi_svi.webp",
+          width: 840,
+          height: 390,
+          altFr: "SVI simulé de CAVI-Alibori : message audio de 6 secondes généré pour Banikoara, règle sécheresse sévère, action paillage, langue bariba",
+          altEn: "CAVI-Alibori simulated IVR: 6-second audio message generated for Banikoara, severe drought rule, mulching action, Bariba language",
+          captionFr: "SVI simulé : le message généré se lit dans le navigateur.",
+          captionEn: "Simulated IVR: the generated message plays in the browser.",
+        },
+        {
+          src: "/images/capability_cavi_regles.webp",
+          width: 1022,
+          height: 446,
+          altFr: "Back-office Filament : table des règles de décision validées (sécheresse sévère → paillage, sécheresse modérée → report d'engrais)",
+          altEn: "Filament back-office: validated decision rules table (severe drought → mulching, moderate drought → delay fertiliser)",
+          captionFr: "Back-office : chaque règle garde la trace de qui l'a validée. L'IA ne décide pas.",
+          captionEn: "Back-office: each rule records who validated it. The AI does not decide.",
+        },
       ],
       limitsEn: [
         "Audio segments are placeholder tones: recordings by a Bariba speaker are still needed.",
         "The AI model's reference sentences still need calibrating on real Météo-Bénin bulletins.",
         "One district, one scenario, one language.",
         "Bulletin granularity and network coverage unverified; no testing with farmers.",
-        "Partial automated tests: no end-to-end test yet.",
+        "No end-to-end test of the full pipeline yet.",
       ],
 
       takeawayFr:

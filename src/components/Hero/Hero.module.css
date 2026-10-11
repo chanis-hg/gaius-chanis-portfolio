@@ -399,49 +399,6 @@
 .locked .br { bottom: 22px; right: 22px; }
 
 
-.reticle {
-  position: absolute;
-  left: var(--fx, 50%);
-  top: var(--fy, 40%);
-  width: 64px;
-  height: 64px;
-  margin: -32px 0 0 -32px;
-  z-index: 3;
-  pointer-events: none;
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
-  border-radius: 6px;
-  opacity: 0.55;
-  transform: scale(1.5);
-  transition:
-    transform 0.45s cubic-bezier(0.22, 0.68, 0, 1.2),
-    opacity 0.3s ease,
-    border-color 0.3s ease;
-}
-
-.reticle::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 4px;
-  height: 4px;
-  margin: -2px 0 0 -2px;
-  border-radius: 50%;
-  background: currentColor;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.locked .reticle {
-  transform: scale(1);
-  opacity: 1;
-  border-color: var(--green);
-}
-
-.locked .reticle::after {
-  color: var(--green);
-}
-
-
 .exif {
   position: absolute;
   left: 0;
@@ -891,7 +848,6 @@
   .photoColumn::before,
   .photoMeta,
   .exif,
-  .reticle,
   .content::before,
   .content::after,
   .sectionTag {
@@ -982,7 +938,6 @@
   .photo,
   .photoInner,
   .corner,
-  .reticle,
   .exif,
   .more,
   .readMore svg,

@@ -15,7 +15,12 @@ import {
 
 import styles from "./Navbar.module.css";
 
-export const CV_URL = "/cv-gaius-chanis-fr.pdf";
+export const CV_URLS = {
+  fr: "/cv-gaius-chanis-fr.pdf",
+  en: "/cv-gaius-chanis-en.pdf",
+};
+
+export const getCvUrl = (lang) => CV_URLS[lang] || CV_URLS.fr;
 
 const NAV_SECTIONS = [
   { id: "home", key: "home", icon: Home },
@@ -27,6 +32,7 @@ const NAV_SECTIONS = [
 
 export default function Navbar({ t, lang, setLang, theme, setTheme }) {
   const isFr = lang === "fr";
+  const cvUrl = getCvUrl(lang);
   const [active, setActive] = useState("home");
   const [mode, setMode] = useState("hero");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -182,7 +188,7 @@ export default function Navbar({ t, lang, setLang, theme, setTheme }) {
             ))}
 
             <div className={styles.menuTools}>
-              <a href={CV_URL} download className={styles.menuTool}>
+              <a href={cvUrl} download className={styles.menuTool}>
                 <Download size={17} strokeWidth={1.8} aria-hidden="true" />
                 <span>{t.nav.cv}</span>
               </a>
@@ -202,7 +208,7 @@ export default function Navbar({ t, lang, setLang, theme, setTheme }) {
 
       <div className={styles.utils}>
         <a
-          href={CV_URL}
+          href={cvUrl}
           download
           className={styles.btnIcon}
           data-tooltip={copy.cv}

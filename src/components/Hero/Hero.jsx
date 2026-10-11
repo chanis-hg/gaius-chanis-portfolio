@@ -86,7 +86,6 @@ function Viewfinder({ lang, frameRef }) {
       <div ref={frameRef} className={styles.flight}>
         <div
           className={`${styles.viewfinder} ${locked ? styles.locked : ""}`}
-          style={{ "--fx": "46%", "--fy": "33%" }}
           role="button"
           tabIndex={0}
           aria-pressed={locked}
@@ -106,7 +105,7 @@ function Viewfinder({ lang, frameRef }) {
         >
           <div className={styles.photoInner}>
             <img
-              src="/moi.jpeg"
+              src="public/images/moi.png"
               alt="Gaïus Chanis HONTONWAKOU"
               className={styles.photo}
             />
@@ -115,8 +114,7 @@ function Viewfinder({ lang, frameRef }) {
             <span className={`${styles.corner} ${styles.tr}`} />
             <span className={`${styles.corner} ${styles.bl}`} />
             <span className={`${styles.corner} ${styles.br}`} />
-            <span className={styles.reticle} />
-
+            
             <dl className={styles.exif}>
               <div className={styles.exifRow}>
                 <dt>STACK</dt>

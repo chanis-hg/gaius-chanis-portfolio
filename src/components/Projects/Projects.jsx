@@ -8,19 +8,18 @@ import ProjectVisual from "../ProjectVisual/ProjectVisual";
 
 import styles from "./Projects.module.css";
 
-/* Bloc réutilisable : affiche un texte OU une liste (tableau) */
 function Block({ label, value, className }) {
   const isEmpty = !value || (Array.isArray(value) && value.length === 0);
   if (isEmpty) return null;
 
   return (
     <div className={className}>
-      <span className={styles.label}>{label}</span>
+      <h4 className={styles.label}>{label}</h4>
 
       {Array.isArray(value) ? (
-        <ul style={{ display: "grid", gap: "0.35rem" }}>
+        <ul className={styles.list}>
           {value.map((item) => (
-            <li key={item}>• {item}</li>
+            <li key={item}>{item}</li>
           ))}
         </ul>
       ) : (
@@ -36,13 +35,14 @@ export default function Projects({ t, lang, activeProjectId }) {
 
   if (!project) return null;
 
-  const getText = (fr, en) => (lang === "fr" ? fr : en);
+  const isFr = lang === "fr";
+  const getText = (fr, en) => (isFr ? fr : en);
 
   const desc = getText(project.descFr, project.descEn);
   const role = getText(project.roleFr, project.roleEn);
   const caseStudy = project.caseStudy;
+  const gallery = caseStudy?.gallery || [];
 
-  // La preuve de l'étude de cas prime sur celle du projet
   const proof = getText(
     caseStudy?.proofFr || project.proofFr,
     caseStudy?.proofEn || project.proofEn,
@@ -54,8 +54,12 @@ export default function Projects({ t, lang, activeProjectId }) {
     ux: getText("UX / CONCEPTION", "UX / DESIGN"),
   };
 
+  const position = String(
+    PROJECTS.findIndex((item) => item.id === project.id) + 1,
+  ).padStart(2, "0");
+
   return (
-    <section id="projects" className={styles.section}>
+    <section id="case-study" className={styles.section}>
       <div className="container">
         <Reveal>
           <SectionHeader
@@ -70,8 +74,6 @@ export default function Projects({ t, lang, activeProjectId }) {
 
         <Reveal delay={0.08}>
           <article className={styles.caseStudy}>
-            {/* COLONNE TEXTE */}
-
             <div className={styles.content}>
               <header className={styles.header}>
                 <div>
@@ -79,7 +81,7 @@ export default function Projects({ t, lang, activeProjectId }) {
                     {familyLabels[project.family] || project.family}
                   </span>
 
-                  <h2 className={styles.title}>{project.title}</h2>
+                  <h3 className={styles.title}>{project.title}</h3>
 
                   <p className={styles.category}>{project.category}</p>
                 </div>
@@ -97,21 +99,17 @@ export default function Projects({ t, lang, activeProjectId }) {
                 </span>
               </header>
 
-              <div className={styles.description}>
-                <span className={styles.label}>
-                  {getText("Contexte", "Context")}
-                </span>
+              <Block
+                className={styles.description}
+                label={getText("Contexte", "Context")}
+                value={desc}
+              />
 
-                <p>{desc}</p>
-              </div>
-
-              {role && (
-                <div className={styles.role}>
-                  <span className={styles.label}>{getText("Rôle", "Role")}</span>
-
-                  <p>{role}</p>
-                </div>
-              )}
+              <Block
+                className={styles.role}
+                label={getText("Mon rôle", "My role")}
+                value={role}
+              />
 
               {caseStudy && (
                 <>
@@ -136,11 +134,8 @@ export default function Projects({ t, lang, activeProjectId }) {
 
                     <Block
                       className={styles.detailBlock}
-                      label={getText("Décision", "Decision")}
-                      value={getText(
-                        caseStudy.decisionFr,
-                        caseStudy.decisionEn,
-                      )}
+                      label={getText("Décision clé", "Key decision")}
+                      value={getText(caseStudy.decisionFr, caseStudy.decisionEn)}
                     />
 
                     <Block
@@ -166,6 +161,12 @@ export default function Projects({ t, lang, activeProjectId }) {
                   />
 
                   <Block
+                    className={styles.detailBlock}
+                    label={getText("Et ensuite", "Next steps")}
+                    value={getText(caseStudy.nextFr, caseStudy.nextEn)}
+                  />
+
+                  <Block
                     className={styles.takeaway}
                     label={getText("Ce que j'en retiens", "What I learned")}
                     value={getText(caseStudy.takeawayFr, caseStudy.takeawayEn)}
@@ -173,7 +174,6 @@ export default function Projects({ t, lang, activeProjectId }) {
                 </>
               )}
 
-              {/* Cas sans étude de cas : on garde la preuve simple */}
               {!caseStudy && (
                 <Block
                   className={styles.proof}
@@ -190,9 +190,9 @@ export default function Projects({ t, lang, activeProjectId }) {
                     rel="noreferrer"
                     className={styles.link}
                   >
-                    <FaGithub size={17} />
-                    <span>GitHub</span>
-                    <ArrowUpRight size={15} strokeWidth={1.7} />
+                    <FaGithub size={17} aria-hidden="true" />
+                    <span>{getText("Voir le code", "View the code")}</span>
+                    <ArrowUpRight size={15} strokeWidth={1.7} aria-hidden="true" />
                   </a>
                 )}
 
@@ -203,9 +203,9 @@ export default function Projects({ t, lang, activeProjectId }) {
                     rel="noreferrer"
                     className={styles.link}
                   >
-                    <ExternalLink size={16} strokeWidth={1.7} />
+                    <ExternalLink size={16} strokeWidth={1.7} aria-hidden="true" />
                     <span>{getText("Voir le projet", "View project")}</span>
-                    <ArrowUpRight size={15} strokeWidth={1.7} />
+                    <ArrowUpRight size={15} strokeWidth={1.7} aria-hidden="true" />
                   </a>
                 )}
 
@@ -216,32 +216,47 @@ export default function Projects({ t, lang, activeProjectId }) {
                     rel="noreferrer"
                     className={styles.link}
                   >
-                    <ExternalLink size={16} strokeWidth={1.7} />
+                    <ExternalLink size={16} strokeWidth={1.7} aria-hidden="true" />
                     <span>Figma</span>
-                    <ArrowUpRight size={15} strokeWidth={1.7} />
+                    <ArrowUpRight size={15} strokeWidth={1.7} aria-hidden="true" />
                   </a>
                 )}
               </div>
             </div>
 
-            {/* PREUVE VISUELLE */}
-
             <aside className={styles.visual}>
               <div className={styles.visualFrame}>
                 <div className={styles.visualBar}>
                   <span>{getText("Aperçu", "Preview")}</span>
-
-                  <span>
-                    {String(
-                      PROJECTS.findIndex((item) => item.id === project.id) + 1,
-                    ).padStart(2, "0")}
-                  </span>
+                  <span>{position}</span>
                 </div>
 
                 <div className={styles.visualContent}>
                   <ProjectVisual project={project} lang={lang} preferImage />
                 </div>
               </div>
+
+              {gallery.length > 0 && (
+                <div className={styles.gallery}>
+                  {gallery.map((shot) => (
+                    <figure className={styles.shot} key={shot.src}>
+                      <a href={shot.src} target="_blank" rel="noreferrer">
+                        <img
+                          src={shot.src}
+                          alt={getText(shot.altFr, shot.altEn)}
+                          width={shot.width}
+                          height={shot.height}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </a>
+                      <figcaption>
+                        {getText(shot.captionFr, shot.captionEn)}
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
+              )}
             </aside>
           </article>
         </Reveal>

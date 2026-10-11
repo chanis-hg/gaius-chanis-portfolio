@@ -2,7 +2,7 @@ import { Download } from "lucide-react";
 import { FiArrowUp, FiArrowUpRight } from "react-icons/fi";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
-import { CV_URL } from "../Navbar/Navbar";
+import { getCvUrl } from "../Navbar/Navbar";
 import styles from "./Footer.module.css";
 
 const SOCIALS = [
@@ -42,7 +42,7 @@ export default function Footer({ t, lang }) {
           </div>
 
           <div className={styles.actions}>
-            <a href={CV_URL} download className={styles.cv}>
+            <a href={getCvUrl(lang)} download className={styles.cv}>
               <Download size={16} strokeWidth={1.8} aria-hidden="true" />
               <span>{t.hero.cta2}</span>
             </a>
